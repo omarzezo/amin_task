@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "109819209780",
+    "project_id": "dokkan-5212e",
+    "storage_bucket": "dokkan-5212e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109819209780:android:e20b3d8547b519bde58261",
+        "android_client_info": {
+          "package_name": "com.example.dokkan_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYTCoSy8-N8b4lq2k78NL_as-aY3OhpTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
