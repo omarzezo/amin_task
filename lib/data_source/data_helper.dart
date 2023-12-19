@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:dokkan_firebase/model/deposite_model.dart';
+import 'package:dokkan_firebase/model/post_data_model.dart';
 import 'package:http/http.dart' as http;
 String baseUrl55 = 'https://expenses.dokkan.xyz/api/v1';
 
@@ -59,6 +60,38 @@ class DbHelper {
     print("response>>"+response.body);
     return detailModel!;
   }
+  //////
+
+  PostDataModel ? postDataModel;
+  Future<dynamic> postDataHttp(
+      {required String time, required String amount}) async {
+    try {
+
+      var response = await http.post(
+          Uri.parse('https://expenses.dokkan.xyz/api/v1/new_transaction'),
+          body: {
+            'amount': amount,
+            'currency_id': '1',
+            'from_vault_id': '1',
+            'to_vault_id': '3',
+            'time': DateTime.now().toString(),
+          });
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var responseData =
+        jsonDecode(const Utf8Decoder().convert(response.bodyBytes));
+        postDataModel = PostDataModel.fromJson(responseData);
+        print('gggggggggg');
+        print('${responseData.toString()}' + response.body);
+        return responseData;
+      }
+    } catch (e) {
+      // statusLoad = StatusLoad.ERROR;
+      // notifyListeners();
+    }
+  }
+  ////
+
   Future<Response?> getDataSource({
     required String  date}
   ) async {

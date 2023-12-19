@@ -1,45 +1,21 @@
-// To parse this JSON data, do
-//
-//     final postDataModel = postDataModelFromJson(jsonString);
-
-import 'package:meta/meta.dart';
-import 'dart:convert';
-
-PostDataModel postDataModelFromJson(String str) => PostDataModel.fromJson(json.decode(str));
-
-String postDataModelToJson(PostDataModel data) => json.encode(data.toJson());
-
 class PostDataModel {
-  final bool status;
-  final String message;
-  final dynamic data;
+  bool? status;
+  String? message;
+  dynamic data;
 
-  PostDataModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
+  PostDataModel({this.status, this.message, this.data});
 
-  PostDataModel copyWith({
-    bool? status,
-    String? message,
-    dynamic data,
-  }) =>
-      PostDataModel(
-        status: status ?? this.status,
-        message: message ?? this.message,
-        data: data ?? this.data,
-      );
+  PostDataModel.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    message = json['message'];
+    data = json['data'];
+  }
 
-  factory PostDataModel.fromJson(Map<String, dynamic> json) => PostDataModel(
-    status: json["status"],
-    message: json["message"],
-    data: json["data"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": data,
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['status'] = status;
+    data['message'] = message;
+    data['data'] = this.data;
+    return data;
+  }
 }

@@ -14,6 +14,10 @@ class PostDataProvider extends ChangeNotifier {
   final TextEditingController amountController = TextEditingController();
   final TextEditingController timeController = TextEditingController();
 
+
+
+
+
   Future<Response<dynamic>?> postData({required String time, required String amount}) async {
     print('post posr privider ++++');
     // var response =
