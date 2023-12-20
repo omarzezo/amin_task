@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:dokkan_firebase/model/calender_data.dart';
 import 'package:dokkan_firebase/model/deposite_model.dart';
 import 'package:dokkan_firebase/model/post_data_model.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 String baseUrl55 = 'https://expenses.dokkan.xyz/api/v1';
 
@@ -47,18 +49,21 @@ class DbHelper {
   //   }
   // }
 
-  Future<DepositeModel> getDataOmar({required String  date}) async {
+  Future<Map<DateTime,List<CalenderData>>> getDataByDate({required int  date}) async {
     var response = await http.get(Uri.parse('$baseUrl55/all_deposit_for_app/$date'));
-    DepositeModel? detailModel ;
+    print("UrlIssss>>"+'$baseUrl55/all_deposit_for_app/$date');
+    Map<DateTime,List<CalenderData>> mappedCalendar = {};
     if (response.statusCode == 200 || response.statusCode==201 ) {
-      // try {
-        final json = jsonDecode(const Utf8Decoder().convert(response.bodyBytes));
-        detailModel = DepositeModel.fromJson(json);
-      // } catch (e) {
-      // }
+      final temp =  jsonDecode(const Utf8Decoder().convert(response.bodyBytes));
+      print("temp['data']"+temp['data'].toString());
+      for(final v in temp['data'].values){
+        print("vvvvvvvvvv"+v.toString());
+        mappedCalendar[DateUtils.dateOnly(DateTime(2023,date,date))] =
+        List<CalenderData>.from(v!.map((x) => CalenderData.fromJson(x)));
+      }
     }
     print("response>>"+response.body);
-    return detailModel!;
+    return mappedCalendar;
   }
   //////
 
